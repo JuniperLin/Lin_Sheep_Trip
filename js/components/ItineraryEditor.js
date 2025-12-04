@@ -24,10 +24,9 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
 
     const handleAddItem = () => {
         if (newItem.text.trim()) {
-            const IconComponent = iconComponents[newItem.icon];
             setFormData({
                 ...formData,
-                content: [...formData.content, { icon: <IconComponent size={16} />, text: newItem.text }]
+                content: [...formData.content, { icon: newItem.icon.toLowerCase(), text: newItem.text }]
             });
             setNewItem({ icon: 'Plane', text: '' });
         }
