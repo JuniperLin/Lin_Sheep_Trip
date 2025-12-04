@@ -59,10 +59,10 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
 
     return (
         <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 overflow-y-auto">
-            <div className="bg-[#fdfbf7] rounded-3xl w-full max-w-2xl p-6 md:p-8 my-8 animate-scale-in"
+            <div className="bg-[#fdfbf7] rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 my-8 animate-scale-in"
                 style={{ borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px', border: '3px solid #333' }}>
 
-                <h2 className="text-2xl md:text-3xl font-bold text-[#e85a4f] mb-6 font-handwriting text-center">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#e85a4f] mb-6 font-handwriting text-center sticky top-0 bg-[#fdfbf7] z-10 pb-2">
                     {itinerary ? '編輯行程' : '新增行程'} ✏️
                 </h2>
 
