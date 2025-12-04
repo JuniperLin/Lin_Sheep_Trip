@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小羊的東京櫻花大冒險 | 2025</title>
+    <meta name="description" content="林小羊的東京春季旅行計畫 - 2025年3月18日至23日櫻花季之旅">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- React and Babel -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&family=Patrick+Hand&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Firebase SDK (暫時註解，等設定完成後再啟用) -->
+    <!-- 
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+    -->
+</head>
+
+<body class="bg-[#fdfbf7] min-h-screen text-gray-800 selection:bg-[#ff9a9e] selection:text-white overflow-x-hidden">
+
+    <div id="root"></div>
+
+    <!-- Firebase Config -->
+    <script src="js/firebase-config.js"></script>
+
+    <!-- Icon Components -->
+    <script type="text/babel" src="js/icons.js"></script>
+
+    <!-- Component Modules -->
+    <script type="text/babel" src="js/components/PaperTexture.js"></script>
+    <script type="text/babel" src="js/components/FallingPetals.js"></script>
+    <script type="text/babel" src="js/components/ImageCropper.js"></script>
+    <script type="text/babel" src="js/components/WalkingSheep.js"></script>
+    <script type="text/babel" src="js/components/ItineraryCard.js"></script>
+    <script type="text/babel" src="js/components/ItineraryEditor.js"></script>
+
+    <!-- Main App -->
+    <script type="text/babel" src="js/app.js"></script>
+
+</body>
+
+</html>
