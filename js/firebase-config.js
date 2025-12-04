@@ -1,67 +1,73 @@
 // Firebase Configuration
-// 請在 Firebase Console 建立專案後，將配置資訊填入下方
-
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDsT2YAN_WE9SIZT0q0Nw3c8r_sP5-zwRI",
+    authDomain: "lin-sheep-trip.firebaseapp.com",
+    databaseURL: "https://lin-sheep-trip-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "lin-sheep-trip",
+    storageBucket: "lin-sheep-trip.firebasestorage.app",
+    messagingSenderId: "949640502462",
+    appId: "1:949640502462:web:14ef811b7ed4a7cbc252ef",
+    measurementId: "G-SH074TFM23"
 };
 
-// 暫時使用 localStorage 作為後備方案
-// 當 Firebase 設定完成後，取消下方註解即可啟用
-
-/*
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-const storage = firebase.storage();
+let app, database, storage;
+if (typeof firebase !== 'undefined') {
+    app = firebase.initializeApp(firebaseConfig);
+    database = firebase.database();
+    storage = firebase.storage();
+}
 
 // Database functions
 const saveItineraries = (itineraries) => {
-    return database.ref('itineraries').set(itineraries);
-};
-
-const loadItineraries = (callback) => {
-    database.ref('itineraries').on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            callback(data);
-        }
-    });
-};
-
-const uploadImage = async (file) => {
-    const storageRef = storage.ref();
-    const imageRef = storageRef.child(`images/${Date.now()}_${file.name}`);
-    const snapshot = await imageRef.put(file);
-    return await snapshot.ref.getDownloadURL();
-};
-*/
-
-// LocalStorage 暫時方案
-const saveItineraries = (itineraries) => {
+    // Save to Firebase
+    if (database) {
+        database.ref('itineraries').set(itineraries);
+    }
+    // Also save to localStorage as backup
     localStorage.setItem('lin_sheep_trip_itineraries', JSON.stringify(itineraries));
     return Promise.resolve();
 };
 
 const loadItineraries = (callback) => {
-    const data = localStorage.getItem('lin_sheep_trip_itineraries');
-    if (data) {
-        callback(JSON.parse(data));
+    if (database) {
+        // Load from Firebase with realtime updates
+        database.ref('itineraries').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                callback(data);
+            } else {
+                // Fallback to localStorage
+                const localData = localStorage.getItem('lin_sheep_trip_itineraries');
+                if (localData) {
+                    callback(JSON.parse(localData));
+                }
+            }
+        });
+    } else {
+        // Fallback to localStorage
+        const localData = localStorage.getItem('lin_sheep_trip_itineraries');
+        if (localData) {
+            callback(JSON.parse(localData));
+        }
     }
     return Promise.resolve();
 };
 
 const uploadImage = async (file) => {
-    return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(file);
-    });
+    if (storage) {
+        const storageRef = storage.ref();
+        const imageRef = storageRef.child(`images/${Date.now()}_${file.name}`);
+        const snapshot = await imageRef.put(file);
+        return await snapshot.ref.getDownloadURL();
+    } else {
+        // Fallback to base64
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(file);
+        });
+    }
 };
 
 // Export/Import functions
