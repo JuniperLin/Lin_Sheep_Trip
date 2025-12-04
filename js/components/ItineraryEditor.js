@@ -134,10 +134,10 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                     </div>
 
                     {/* Add new item */}
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                         <select value={newItem.icon}
                             onChange={(e) => setNewItem({ ...newItem, icon: e.target.value })}
-                            className="px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none">
+                            className="w-full sm:w-auto px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm">
                             <option value="Plane">✈️ 飛機</option>
                             <option value="MapPin">📍 地點</option>
                             <option value="Utensils">🍴 美食</option>
@@ -146,15 +146,17 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                             <option value="Star">⭐ 推薦</option>
                             <option value="Camera">📷 拍照</option>
                         </select>
-                        <input type="text" value={newItem.text}
-                            onChange={(e) => setNewItem({ ...newItem, text: e.target.value })}
-                            onKeyPress={(e) => e.key === 'Enter' && handleAddItem()}
-                            className="flex-1 px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none"
-                            placeholder="輸入行程項目..." />
-                        <button onClick={handleAddItem}
-                            className="px-4 py-2 bg-[#ff9a9e] text-white rounded-xl font-bold hover:bg-[#ff8a8e] transition-colors">
-                            <Plus size={16} />
-                        </button>
+                        <div className="flex gap-2 flex-1">
+                            <input type="text" value={newItem.text}
+                                onChange={(e) => setNewItem({ ...newItem, text: e.target.value })}
+                                onKeyPress={(e) => e.key === 'Enter' && handleAddItem()}
+                                className="flex-1 px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm"
+                                placeholder="輸入行程項目..." />
+                            <button onClick={handleAddItem}
+                                className="px-4 py-2 bg-[#ff9a9e] text-white rounded-xl font-bold hover:bg-[#ff8a8e] transition-colors flex-shrink-0">
+                                <Plus size={16} />
+                            </button>
+                        </div>
                     </div>
                 </div>
 
