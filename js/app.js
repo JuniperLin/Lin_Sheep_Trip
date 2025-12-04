@@ -14,10 +14,10 @@ const App = () => {
             align: "left",
             sheepOS: "終於到了！Skyliner好快喔，我的羊毛有沒有被風吹亂？媽咪說今晚有章魚燒吃，我要吃三顆！",
             content: [
-                { icon: <Plane size={16} />, text: "14:00 抵達東京！Skyliner 直奔上野" },
-                { icon: <MapPin size={16} />, text: "16:00 Check-in 放行李，小羊要睡靠窗" },
-                { icon: <Utensils size={16} />, text: "17:30 阿美橫町吃鐵火丼 & 章魚燒" },
-                { icon: <Gift size={16} />, text: "19:00 Yamashiroya 玩具店尋寶" }
+                { icon: 'plane', text: "14:00 抵達東京！Skyliner 直奔上野" },
+                { icon: 'mappin', text: "16:00 Check-in 放行李，小羊要睡靠窗" },
+                { icon: 'utensils', text: "17:30 阿美橫町吃鐵火丼 & 章魚燒" },
+                { icon: 'gift', text: "19:00 Yamashiroya 玩具店尋寶" }
             ]
         },
         {
@@ -28,10 +28,10 @@ const App = () => {
             align: "right",
             sheepOS: "哇～好多粉紅色的花花！不知道熊貓前輩會不會理我？聽說雷門那邊有很大的燈籠，不可以被我撞壞喔！",
             content: [
-                { icon: <Coffee size={16} />, text: "09:00 上野公園樹下野餐 (記得帶墊子!)" },
-                { icon: <Star size={16} />, text: "11:00 上野動物園，看真正的熊貓前輩" },
-                { icon: <MapPin size={16} />, text: "15:00 淺草雷門散步，幫大家求籤" },
-                { icon: <Camera size={16} />, text: "18:00 隅田川公園看晴空塔夜景" }
+                { icon: 'coffee', text: "09:00 上野公園樹下野餐 (記得帶墊子!)" },
+                { icon: 'star', text: "11:00 上野動物園，看真正的熊貓前輩" },
+                { icon: 'mappin', text: "15:00 淺草雷門散步，幫大家求籤" },
+                { icon: 'camera', text: "18:00 隅田川公園看晴空塔夜景" }
             ]
         },
         {
@@ -42,10 +42,10 @@ const App = () => {
             align: "left",
             sheepOS: "這裡人好多喔...如果不小心走丟，我就在八公像那邊等媽咪！晚上要去看高高的夕陽，腳會不會發抖呀？",
             content: [
-                { icon: <MapPin size={16} />, text: "10:00 澀谷十字路口與八公像合照" },
-                { icon: <Coffee size={16} />, text: "13:00 中目黑星巴克，目黑川賞櫻散步" },
-                { icon: <Camera size={16} />, text: "16:30 Shibuya Sky 看絕美夕陽 (已預約)" },
-                { icon: <Gift size={16} />, text: "19:30 Parco 任天堂 & 寶可夢中心" }
+                { icon: 'mappin', text: "10:00 澀谷十字路口與八公像合照" },
+                { icon: 'coffee', text: "13:00 中目黑星巴克，目黑川賞櫻散步" },
+                { icon: 'camera', text: "16:30 Shibuya Sky 看絕美夕陽 (已預約)" },
+                { icon: 'gift', text: "19:30 Parco 任天堂 & 寶可夢中心" }
             ]
         },
         {
@@ -56,10 +56,10 @@ const App = () => {
             align: "right",
             sheepOS: "那個山好像布丁喔！上面白白的好像很好吃～我要跟薰衣草冰淇淋合照，但不能融化在羊毛上！",
             content: [
-                { icon: <Utensils size={16} />, text: "08:00 搭乘富士回遊號，吃火車便當" },
-                { icon: <Camera size={16} />, text: "11:00 下吉田商店街，拍日式街景" },
-                { icon: <Star size={16} />, text: "14:00 大石公園吃薰衣草霜淇淋" },
-                { icon: <Utensils size={16} />, text: "18:00 回上野吃一蘭拉麵 + 替玉" }
+                { icon: 'utensils', text: "08:00 搭乘富士回遊號，吃火車便當" },
+                { icon: 'camera', text: "11:00 下吉田商店街，拍日式街景" },
+                { icon: 'star', text: "14:00 大石公園吃薰衣草霜淇淋" },
+                { icon: 'utensils', text: "18:00 回上野吃一蘭拉麵 + 替玉" }
             ]
         },
         {
@@ -70,10 +70,10 @@ const App = () => {
             align: "left",
             sheepOS: "天鵝船長得呆呆的，跟我有點像？我也要買酷酷的古著，這樣回台灣就是最潮的小羊了！",
             content: [
-                { icon: <Star size={16} />, text: "10:00 井之頭公園踩天鵝船 (小心別掉下去)" },
-                { icon: <Gift size={16} />, text: "12:30 吉祥寺商店街買藥妝 & 雜貨" },
-                { icon: <Utensils size={16} />, text: "15:30 下北澤吃湯咖哩、逛古著" },
-                { icon: <MapPin size={16} />, text: "19:00 新宿歌舞伎町感受熱鬧氣氛" }
+                { icon: 'star', text: "10:00 井之頭公園踩天鵝船 (小心別掉下去)" },
+                { icon: 'gift', text: "12:30 吉祥寺商店街買藥妝 & 雜貨" },
+                { icon: 'utensils', text: "15:30 下北澤吃湯咖哩、逛古著" },
+                { icon: 'mappin', text: "19:00 新宿歌舞伎町感受熱鬧氣氛" }
             ]
         },
         {
@@ -84,10 +84,10 @@ const App = () => {
             align: "right",
             sheepOS: "嗚嗚...不想回家...行李箱好像被我的零食塞滿了？媽咪說下次還可以再來，那我們打勾勾喔！",
             content: [
-                { icon: <Gift size={16} />, text: "10:00 上野二木の菓子最後補貨" },
-                { icon: <Coffee size={16} />, text: "12:00 Check-out，便利商店炸雞當午餐" },
-                { icon: <Plane size={16} />, text: "14:00 搭乘 Skyliner 前往成田機場" },
-                { icon: <Star size={16} />, text: "16:00 小羊回家囉！期待下次旅行" }
+                { icon: 'gift', text: "10:00 上野二木の菓子最後補貨" },
+                { icon: 'coffee', text: "12:00 Check-out，便利商店炸雞當午餐" },
+                { icon: 'plane', text: "14:00 搭乘 Skyliner 前往成田機場" },
+                { icon: 'star', text: "16:00 小羊回家囉！期待下次旅行" }
             ]
         }
     ];
