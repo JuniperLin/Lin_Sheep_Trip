@@ -43,8 +43,8 @@ const saveItineraries = (itineraries) => {
 
 const loadItineraries = (callback) => {
     if (database) {
-        // Load from Firebase with realtime updates
-        database.ref('itineraries').on('value', (snapshot) => {
+        // Load from Firebase ONCE (not realtime listener to avoid infinite loops)
+        database.ref('itineraries').once('value', (snapshot) => {
             const data = snapshot.val();
             // Always call callback, even if data is null
             // This allows app.js to distinguish between null (first time) and [] (deleted all)

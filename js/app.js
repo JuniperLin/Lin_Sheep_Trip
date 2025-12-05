@@ -2,118 +2,34 @@ const App = () => {
     const [itineraries, setItineraries] = React.useState([]);
     const [editingIndex, setEditingIndex] = React.useState(null);
     const [showEditor, setShowEditor] = React.useState(false);
+    const [isInitialized, setIsInitialized] = React.useState(false);
     const importFileRef = React.useRef(null);
 
-    // 初始資料
-    const defaultItineraries = [
-        {
-            day: "Day 1",
-            date: "3/18",
-            title: "阿美橫町大冒險",
-            image: "https://images.unsplash.com/photo-1554797589-7241bb691973?q=80&w=600&auto=format&fit=crop",
-            align: "left",
-            sheepOS: "終於到了！Skyliner好快喔，我的羊毛有沒有被風吹亂？媽咪說今晚有章魚燒吃，我要吃三顆！",
-            content: [
-                { icon: 'plane', text: "14:00 抵達東京！Skyliner 直奔上野" },
-                { icon: 'mappin', text: "16:00 Check-in 放行李，小羊要睡靠窗" },
-                { icon: 'utensils', text: "17:30 阿美橫町吃鐵火丼 & 章魚燒" },
-                { icon: 'gift', text: "19:00 Yamashiroya 玩具店尋寶" }
-            ]
-        },
-        {
-            day: "Day 2",
-            date: "3/19",
-            title: "上野粉紅櫻花海",
-            image: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=600&auto=format&fit=crop",
-            align: "right",
-            sheepOS: "哇～好多粉紅色的花花！不知道熊貓前輩會不會理我？聽說雷門那邊有很大的燈籠，不可以被我撞壞喔！",
-            content: [
-                { icon: 'coffee', text: "09:00 上野公園樹下野餐 (記得帶墊子!)" },
-                { icon: 'star', text: "11:00 上野動物園，看真正的熊貓前輩" },
-                { icon: 'mappin', text: "15:00 淺草雷門散步，幫大家求籤" },
-                { icon: 'camera', text: "18:00 隅田川公園看晴空塔夜景" }
-            ]
-        },
-        {
-            day: "Day 3",
-            date: "3/20",
-            title: "潮流澀谷 & 展望台",
-            image: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=600&auto=format&fit=crop",
-            align: "left",
-            sheepOS: "這裡人好多喔...如果不小心走丟，我就在八公像那邊等媽咪！晚上要去看高高的夕陽，腳會不會發抖呀？",
-            content: [
-                { icon: 'mappin', text: "10:00 澀谷十字路口與八公像合照" },
-                { icon: 'coffee', text: "13:00 中目黑星巴克，目黑川賞櫻散步" },
-                { icon: 'camera', text: "16:30 Shibuya Sky 看絕美夕陽 (已預約)" },
-                { icon: 'gift', text: "19:30 Parco 任天堂 & 寶可夢中心" }
-            ]
-        },
-        {
-            day: "Day 4",
-            date: "3/21",
-            title: "富士山河口湖",
-            image: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=80&w=600&auto=format&fit=crop",
-            align: "right",
-            sheepOS: "那個山好像布丁喔！上面白白的好像很好吃～我要跟薰衣草冰淇淋合照，但不能融化在羊毛上！",
-            content: [
-                { icon: 'utensils', text: "08:00 搭乘富士回遊號，吃火車便當" },
-                { icon: 'camera', text: "11:00 下吉田商店街，拍日式街景" },
-                { icon: 'star', text: "14:00 大石公園吃薰衣草霜淇淋" },
-                { icon: 'utensils', text: "18:00 回上野吃一蘭拉麵 + 替玉" }
-            ]
-        },
-        {
-            day: "Day 5",
-            date: "3/22",
-            title: "吉祥寺雜貨巡禮",
-            image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=600&auto=format&fit=crop",
-            align: "left",
-            sheepOS: "天鵝船長得呆呆的，跟我有點像？我也要買酷酷的古著，這樣回台灣就是最潮的小羊了！",
-            content: [
-                { icon: 'star', text: "10:00 井之頭公園踩天鵝船 (小心別掉下去)" },
-                { icon: 'gift', text: "12:30 吉祥寺商店街買藥妝 & 雜貨" },
-                { icon: 'utensils', text: "15:30 下北澤吃湯咖哩、逛古著" },
-                { icon: 'mappin', text: "19:00 新宿歌舞伎町感受熱鬧氣氛" }
-            ]
-        },
-        {
-            day: "Day 6",
-            date: "3/23",
-            title: "滿載而歸",
-            image: "https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=600&auto=format&fit=crop",
-            align: "right",
-            sheepOS: "嗚嗚...不想回家...行李箱好像被我的零食塞滿了？媽咪說下次還可以再來，那我們打勾勾喔！",
-            content: [
-                { icon: 'gift', text: "10:00 上野二木の菓子最後補貨" },
-                { icon: 'coffee', text: "12:00 Check-out，便利商店炸雞當午餐" },
-                { icon: 'plane', text: "14:00 搭乘 Skyliner 前往成田機場" },
-                { icon: 'star', text: "16:00 小羊回家囉！期待下次旅行" }
-            ]
-        }
-    ];
+    // 初始資料 - 預設為空
+    const defaultItineraries = [];
 
     // 初始化載入資料
     React.useEffect(() => {
         loadItineraries((loadedData) => {
-            // 只有在「完全沒有資料」時才載入預設值
-            // 如果 loadedData 是空陣列 []，代表使用者已經刪除所有項目，應該保持空白
-            if (loadedData === null || loadedData === undefined) {
-                // 第一次使用，載入預設資料
-                setItineraries(defaultItineraries);
-                saveItineraries(defaultItineraries);
-            } else {
-                // 已經有資料（可能是空陣列 [] 或有內容的陣列）
+            // 如果有資料就載入，沒有就用空陣列
+            if (loadedData && Array.isArray(loadedData)) {
                 setItineraries(loadedData);
+            } else {
+                // 第一次使用或資料為空，從空白開始
+                setItineraries([]);
             }
+            // 標記初始化完成，之後的變更才會觸發儲存
+            setIsInitialized(true);
         });
     }, []);
 
-    // 儲存資料
+    // 儲存資料 - 當資料變更時同步到 Firebase 和 localStorage
     React.useEffect(() => {
-        if (itineraries.length > 0) {
+        // 只在初始化完成後才儲存，避免初始載入時重複儲存
+        if (isInitialized) {
             saveItineraries(itineraries);
         }
-    }, [itineraries]);
+    }, [itineraries, isInitialized]);
 
     const handleAddNew = () => {
         setEditingIndex(null);
