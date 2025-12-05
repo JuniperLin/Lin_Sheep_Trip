@@ -28,13 +28,13 @@ const ItineraryCard = ({ day, date, title, content, image, align = 'left', sheep
             {/* Content card */}
             <div className={`w-full md:w-5/12 ${align === 'right' ? 'md:pl-12' : 'md:pr-12'} relative`}>
                 {/* Edit/Delete buttons */}
-                <div className={`absolute -top-3 right-2 z-20 flex gap-2 transition-opacity duration-300 ${showActions ? 'opacity-100' : 'opacity-0'}`}>
-                    <button onClick={onEdit}
+                <div className={`absolute -top-3 right-2 z-20 flex gap-2 transition-opacity duration-300 ${showActions ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+                    <button onClick={(e) => { e.stopPropagation(); onEdit(); }}
                         className="p-2 bg-[#a8e6cf] text-white rounded-full shadow-lg hover:bg-[#8dd9b8] transition-all hover:scale-110"
                         title="編輯">
                         <Edit size={16} />
                     </button>
-                    <button onClick={onDelete}
+                    <button onClick={(e) => { e.stopPropagation(); onDelete(); }}
                         className="p-2 bg-[#ff9a9e] text-white rounded-full shadow-lg hover:bg-[#ff8a8e] transition-all hover:scale-110"
                         title="刪除">
                         <Trash size={16} />
