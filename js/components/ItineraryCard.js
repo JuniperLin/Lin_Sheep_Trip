@@ -1,15 +1,15 @@
 // Helper function to get icon component from string type
 const getIconComponent = (iconType, size = 16) => {
     const iconMap = {
-        'plane': <Plane size={size} />,
-        'mappin': <MapPin size={size} />,
-        'utensils': <Utensils size={size} />,
-        'gift': <Gift size={size} />,
-        'coffee': <Coffee size={size} />,
-        'star': <Star size={size} />,
-        'camera': <Camera size={size} />
+        'plane': window.React.createElement(Plane, { size }),
+        'mappin': window.React.createElement(MapPin, { size }),
+        'utensils': window.React.createElement(Utensils, { size }),
+        'gift': window.React.createElement(Gift, { size }),
+        'coffee': window.React.createElement(Coffee, { size }),
+        'star': window.React.createElement(Star, { size }),
+        'camera': window.React.createElement(Camera, { size })
     };
-    return iconMap[iconType] || <MapPin size={size} />;
+    return iconMap[iconType.toLowerCase()] || window.React.createElement(MapPin, { size });
 };
 
 const ItineraryCard = ({ day, date, title, content, image, align = 'left', sheepOS, onEdit, onDelete }) => {
