@@ -10,8 +10,8 @@ const App = () => {
 
     // 初始化載入資料
     React.useEffect(() => {
-        // 強制清除所有舊資料（使用 v4 版本旗標 - 用 remove() 徹底刪除）
-        const CLEAR_VERSION = 'lin_sheep_data_cleared_v4';
+        // 強制清除所有舊資料（使用 v5 版本旗標）
+        const CLEAR_VERSION = 'lin_sheep_data_cleared_v5';
         const shouldClear = !localStorage.getItem(CLEAR_VERSION);
 
         if (shouldClear) {
