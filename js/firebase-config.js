@@ -34,22 +34,14 @@ const loadItineraries = (callback) => {
         // Load from Firebase with realtime updates
         database.ref('itineraries').on('value', (snapshot) => {
             const data = snapshot.val();
-            if (data) {
-                callback(data);
-            } else {
-                // Fallback to localStorage
-                const localData = localStorage.getItem('lin_sheep_trip_itineraries');
-                if (localData) {
-                    callback(JSON.parse(localData));
-                }
-            }
+            // Always call callback, even if data is null
+            // This allows app.js to distinguish between null (first time) and [] (deleted all)
+            callback(data);
         });
     } else {
         // Fallback to localStorage
         const localData = localStorage.getItem('lin_sheep_trip_itineraries');
-        if (localData) {
-            callback(JSON.parse(localData));
-        }
+        callback(localData ? JSON.parse(localData) : null);
     }
     return Promise.resolve();
 };

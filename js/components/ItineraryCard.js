@@ -57,6 +57,9 @@ const ItineraryCard = ({ day, date, title, content, image, align = 'left', sheep
                     <ul className="space-y-3">
                         {content.map((item, idx) => (
                             <li key={idx} className="flex items-start text-gray-700 text-sm md:text-base font-handwriting">
+                                {item.time && (
+                                    <span className="mr-2 text-[#ff9a9e] font-bold min-w-[3rem]">{item.time}</span>
+                                )}
                                 <span className="mr-2 mt-1 text-[#ff9a9e]">
                                     {typeof item.icon === 'string' ? getIconComponent(item.icon) : item.icon}
                                 </span>
