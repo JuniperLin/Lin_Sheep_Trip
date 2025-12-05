@@ -10,26 +10,39 @@ const App = () => {
 
     // 初始化載入資料
     React.useEffect(() => {
-        // 強制清除所有舊資料（使用 v5 版本旗標）
-        const CLEAR_VERSION = 'lin_sheep_data_cleared_v5';
+        // 強制清除所有舊資料（使用 v6 版本旗標 + 時間戳保護）
+        const CLEAR_VERSION = 'lin_sheep_data_cleared_v6';
+        const CLEAR_TIMESTAMP = 'lin_sheep_clear_timestamp';
         const shouldClear = !localStorage.getItem(CLEAR_VERSION);
 
         if (shouldClear) {
-            console.log('🧹 強制清除所有舊資料 v4...');
-            // 清除 localStorage 所有相關資料
-            localStorage.clear(); // 清除所有 localStorage
+            console.log('🧹 強制清除所有舊資料 v6...');
+            // 清除 localStorage (保留 v6 旗標)
+            const flagsToKeep = {};
+            localStorage.clear();
 
-            // 用 remove() 徹底刪除 Firebase 節點（不是設為空陣列）
+            // 用 remove() 徹底刪除 Firebase 節點
             if (typeof database !== 'undefined' && database) {
                 database.ref('itineraries').remove()
                     .then(() => console.log('✅ Firebase itineraries 節點已刪除'))
                     .catch(err => console.error('❌ Firebase 刪除失敗:', err));
             }
 
-            // 設定旗標防止下次再清除
+            // 設定旗標和時間戳
             localStorage.setItem(CLEAR_VERSION, 'true');
+            localStorage.setItem(CLEAR_TIMESTAMP, Date.now().toString());
 
             // 設定空陣列並初始化
+            setItineraries([]);
+            setIsInitialized(true);
+            return;
+        }
+
+        // 檢查是否剛清除過（5秒內），如果是則跳過載入避免競爭條件
+        const clearTime = parseInt(localStorage.getItem(CLEAR_TIMESTAMP) || '0');
+        const timeSinceClear = Date.now() - clearTime;
+        if (timeSinceClear < 5000) {
+            console.log('⏳ 剛清除過，跳過載入');
             setItineraries([]);
             setIsInitialized(true);
             return;
@@ -39,8 +52,10 @@ const App = () => {
         loadItineraries((loadedData) => {
             // 只有真正有資料時才載入
             if (loadedData && Array.isArray(loadedData) && loadedData.length > 0) {
+                console.log('📦 從 Firebase 載入', loadedData.length, '筆資料');
                 setItineraries(loadedData);
             } else {
+                console.log('📭 Firebase 無資料，使用空陣列');
                 setItineraries([]);
             }
             setIsInitialized(true);
