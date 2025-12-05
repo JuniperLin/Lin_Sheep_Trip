@@ -95,11 +95,15 @@ const App = () => {
     // 初始化載入資料
     React.useEffect(() => {
         loadItineraries((loadedData) => {
-            if (loadedData && loadedData.length > 0) {
-                setItineraries(loadedData);
-            } else {
+            // 只有在「完全沒有資料」時才載入預設值
+            // 如果 loadedData 是空陣列 []，代表使用者已經刪除所有項目，應該保持空白
+            if (loadedData === null || loadedData === undefined) {
+                // 第一次使用，載入預設資料
                 setItineraries(defaultItineraries);
                 saveItineraries(defaultItineraries);
+            } else {
+                // 已經有資料（可能是空陣列 [] 或有內容的陣列）
+                setItineraries(loadedData);
             }
         });
     }, []);
