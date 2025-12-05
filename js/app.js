@@ -10,21 +10,20 @@ const App = () => {
 
     // 初始化載入資料
     React.useEffect(() => {
-        // 強制清除所有舊資料（使用 v3 版本旗標）
-        const CLEAR_VERSION = 'lin_sheep_data_cleared_v3';
+        // 強制清除所有舊資料（使用 v4 版本旗標 - 用 remove() 徹底刪除）
+        const CLEAR_VERSION = 'lin_sheep_data_cleared_v4';
         const shouldClear = !localStorage.getItem(CLEAR_VERSION);
 
         if (shouldClear) {
-            console.log('🧹 強制清除所有舊資料...');
+            console.log('🧹 強制清除所有舊資料 v4...');
             // 清除 localStorage 所有相關資料
-            localStorage.removeItem('lin_sheep_trip_itineraries');
-            localStorage.removeItem('lin_sheep_data_cleared_v2');
-            localStorage.removeItem('lin_sheep_avatar');
+            localStorage.clear(); // 清除所有 localStorage
 
-            // 強制清空 Firebase
+            // 用 remove() 徹底刪除 Firebase 節點（不是設為空陣列）
             if (typeof database !== 'undefined' && database) {
-                database.ref('itineraries').set([]);
-                console.log('✅ Firebase 資料已清空');
+                database.ref('itineraries').remove()
+                    .then(() => console.log('✅ Firebase itineraries 節點已刪除'))
+                    .catch(err => console.error('❌ Firebase 刪除失敗:', err));
             }
 
             // 設定旗標防止下次再清除
@@ -36,8 +35,9 @@ const App = () => {
             return;
         }
 
-        // 正常載入資料
+        // 正常載入資料流程
         loadItineraries((loadedData) => {
+            // 只有真正有資料時才載入
             if (loadedData && Array.isArray(loadedData) && loadedData.length > 0) {
                 setItineraries(loadedData);
             } else {
