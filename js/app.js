@@ -10,26 +10,39 @@ const App = () => {
 
     // 初始化載入資料
     React.useEffect(() => {
-        // 一次性清除舊資料（只執行一次後可以刪除這段）
-        const shouldClear = !localStorage.getItem('lin_sheep_data_cleared_v2');
+        // 強制清除所有舊資料（使用 v3 版本旗標）
+        const CLEAR_VERSION = 'lin_sheep_data_cleared_v3';
+        const shouldClear = !localStorage.getItem(CLEAR_VERSION);
+
         if (shouldClear) {
-            console.log('清除舊資料...');
-            saveItineraries([]);
-            localStorage.setItem('lin_sheep_data_cleared_v2', 'true');
+            console.log('🧹 強制清除所有舊資料...');
+            // 清除 localStorage 所有相關資料
+            localStorage.removeItem('lin_sheep_trip_itineraries');
+            localStorage.removeItem('lin_sheep_data_cleared_v2');
+            localStorage.removeItem('lin_sheep_avatar');
+
+            // 強制清空 Firebase
+            if (typeof database !== 'undefined' && database) {
+                database.ref('itineraries').set([]);
+                console.log('✅ Firebase 資料已清空');
+            }
+
+            // 設定旗標防止下次再清除
+            localStorage.setItem(CLEAR_VERSION, 'true');
+
+            // 設定空陣列並初始化
             setItineraries([]);
             setIsInitialized(true);
             return;
         }
 
+        // 正常載入資料
         loadItineraries((loadedData) => {
-            // 如果有資料就載入，沒有就用空陣列
-            if (loadedData && Array.isArray(loadedData)) {
+            if (loadedData && Array.isArray(loadedData) && loadedData.length > 0) {
                 setItineraries(loadedData);
             } else {
-                // 第一次使用或資料為空，從空白開始
                 setItineraries([]);
             }
-            // 標記初始化完成，之後的變更才會觸發儲存
             setIsInitialized(true);
         });
     }, []);
