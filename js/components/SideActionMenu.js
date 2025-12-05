@@ -10,10 +10,14 @@ const SideActionMenu = ({ onAddNew, onExport, onImport, importFileRef }) => {
 
     return (
         <div className="fixed bottom-24 md:bottom-4 left-0 z-50">
-            {/* Desktop: Hover to expand - bottom left, arrow flush with edge */}
-            <div className="hidden md:flex fixed left-0 bottom-8 z-50 group">
-                {/* Menu panel - slides out from left */}
-                <div className={`flex flex-col gap-3 bg-white/90 backdrop-blur-sm shadow-xl p-3 rounded-r-2xl transition-all duration-300 -translate-x-full group-hover:translate-x-0`}>
+            {/* Desktop: Hover to expand - arrow at absolute left edge */}
+            <div className="hidden md:block fixed left-0 bottom-8 z-50 group">
+                {/* Arrow tab - absolutely positioned at left edge */}
+                <div className="absolute left-0 top-0 w-5 h-20 bg-[#ff9a9e]/90 rounded-r-md flex items-center justify-center cursor-pointer group-hover:bg-[#ff9a9e] transition-colors shadow-md">
+                    <ChevronRight size={16} className="text-white group-hover:animate-pulse" />
+                </div>
+                {/* Menu panel - positioned to the left of arrow, slides in on hover */}
+                <div className={`absolute left-5 top-0 flex flex-col gap-3 bg-white/90 backdrop-blur-sm shadow-xl p-3 rounded-r-2xl transition-all duration-300 opacity-0 -translate-x-full group-hover:opacity-100 group-hover:translate-x-0`}>
                     <button onClick={onAddNew}
                         className="w-12 h-12 bg-[#ff9a9e] text-white rounded-full shadow-lg hover:bg-[#ff8a8e] transition-all hover:scale-110 flex items-center justify-center"
                         title="新增行程">
@@ -29,10 +33,6 @@ const SideActionMenu = ({ onAddNew, onExport, onImport, importFileRef }) => {
                         title="匯入備份">
                         <Upload size={20} />
                     </button>
-                </div>
-                {/* Arrow tab - flush with left edge (no margin/padding) */}
-                <div className="w-5 h-20 bg-[#ff9a9e]/90 rounded-r-md flex items-center justify-center cursor-pointer group-hover:bg-[#ff9a9e] transition-colors shadow-md">
-                    <ChevronRight size={16} className="text-white group-hover:animate-pulse" />
                 </div>
             </div>
 
