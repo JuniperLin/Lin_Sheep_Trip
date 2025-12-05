@@ -1,5 +1,11 @@
 const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
-    const [formData, setFormData] = React.useState(itinerary || {
+    // 確保 content 永遠是陣列
+    const safeItinerary = itinerary ? {
+        ...itinerary,
+        content: itinerary.content || []
+    } : null;
+
+    const [formData, setFormData] = React.useState(safeItinerary || {
         day: 'Day 1',
         date: '3/18',
         title: '',
