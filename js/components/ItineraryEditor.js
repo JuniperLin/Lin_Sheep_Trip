@@ -92,7 +92,7 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
             <div className="bg-[#fdfbf7] rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 my-8 animate-scale-in"
                 style={{ borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px', border: '3px solid #333' }}>
 
-                <h2 className="text-2xl md:text-3xl font-bold text-[#e85a4f] mb-6 font-handwriting text-center sticky top-0 bg-[#fdfbf7] z-10 pb-2">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#e85a4f] mb-6 font-handwriting text-center">
                     {itinerary ? '編輯行程' : '新增行程'} ✏️
                 </h2>
 
@@ -182,11 +182,11 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                         <div className="flex flex-col sm:flex-row gap-2">
                             <input type="time" value={newItem.time}
                                 onChange={(e) => setNewItem({ ...newItem, time: e.target.value })}
-                                className="w-full sm:w-32 px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm"
+                                className="w-28 px-2 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm"
                                 placeholder="時間" />
                             <select value={newItem.icon}
                                 onChange={(e) => setNewItem({ ...newItem, icon: e.target.value })}
-                                className="w-full sm:flex-1 px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm">
+                                className="flex-1 px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm">
                                 <option value="Plane">✈️ 飛機</option>
                                 <option value="MapPin">📍 地點</option>
                                 <option value="Utensils">🍴 美食</option>
