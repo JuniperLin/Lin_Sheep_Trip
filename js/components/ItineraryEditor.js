@@ -1,5 +1,5 @@
 const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
-    // 確保 content 永遠是陣列
+    // 確�? content 永�??�陣??
     const safeItinerary = itinerary ? {
         ...itinerary,
         content: itinerary.content || []
@@ -111,7 +111,7 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                 style={{ borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px', border: '3px solid #333' }}>
 
                 <h2 className="text-2xl md:text-3xl font-bold text-[#e85a4f] mb-6 font-handwriting text-center">
-                    {itinerary ? '編輯行程' : '新增行程'} ✏️
+                    {itinerary ? '編輯行�?' : '?��?行�?'} ?��?
                 </h2>
 
                 {/* Basic Info */}
@@ -124,41 +124,41 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                             placeholder="Day 1" />
                     </div>
                     <div>
-                        <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">日期</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">?��?</label>
                         <input type="text" value={formData.date}
                             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                             className="w-full px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none"
                             placeholder="3/18" />
                     </div>
                     <div>
-                        <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">對齊</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">對�?</label>
                         <select value={formData.align}
                             onChange={(e) => setFormData({ ...formData, align: e.target.value })}
                             className="w-full px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none">
-                            <option value="left">左</option>
-                            <option value="right">右</option>
+                            <option value="left">�?/option>
+                            <option value="right">??/option>
                         </select>
                     </div>
                 </div>
 
                 {/* Title */}
                 <div className="mb-6">
-                    <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">標題</label>
+                    <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">標�?</label>
                     <input type="text" value={formData.title}
                         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                         className="w-full px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none"
-                        placeholder="阿美橫町大冒險" />
+                        placeholder="?��?橫町大�??? />
                 </div>
 
                 {/* Image */}
                 <div className="mb-6">
-                    <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">圖片</label>
+                    <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">?��?</label>
                     <div className="flex gap-3 items-center">
                         <input type="file" ref={fileInputRef} onChange={handleImageUpload} accept="image/*" className="hidden" />
                         <button onClick={() => fileInputRef.current.click()}
                             disabled={isUploading}
                             className={`px-4 py-2 ${isUploading ? 'bg-gray-400' : 'bg-[#a8e6cf]'} text-white rounded-xl font-bold hover:bg-[#8dd9b8] transition-colors flex items-center`}>
-                            <Upload size={16} className="mr-2" /> {isUploading ? '上傳中...' : '上傳圖片'}
+                            <Upload size={16} className="mr-2" /> {isUploading ? '上傳�?..' : '上傳?��?'}
                         </button>
                         {formData.image && (
                             <img src={formData.image} alt="Preview" className="w-20 h-20 object-cover rounded-xl border-2 border-gray-300" />
@@ -168,7 +168,7 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
 
                 {/* Content Items */}
                 <div className="mb-6">
-                    <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">行程內容</label>
+                    <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">行�??�容</label>
                     <div className="space-y-2 mb-3">
                         {formData.content.map((item, index) => (
                             <div key={index} className={`flex items-center gap-2 bg-white p-3 rounded-xl border-2 ${editingItemIndex === index ? 'border-[#ff9a9e] bg-[#fff9f9]' : 'border-gray-200'}`}>
@@ -184,7 +184,7 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                                 </button>
                                 <button onClick={() => handleRemoveItem(index)}
                                     className="text-red-500 hover:text-red-700"
-                                    title="刪除">
+                                    title="?�除">
                                     <XIcon size={16} />
                                 </button>
                             </div>
@@ -195,24 +195,24 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                     <div className="flex flex-col gap-2">
                         {editingItemIndex !== null && (
                             <div className="text-sm font-bold text-blue-600 mb-1">
-                                ✏️ 編輯模式
+                                ?��? 編輯模�?
                             </div>
                         )}
                         <div className="flex flex-col sm:flex-row gap-2">
                             <input type="time" value={newItem.time}
                                 onChange={(e) => setNewItem({ ...newItem, time: e.target.value })}
                                 className="w-28 px-2 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm"
-                                placeholder="時間" />
+                                placeholder="?��?" />
                             <select value={newItem.icon}
                                 onChange={(e) => setNewItem({ ...newItem, icon: e.target.value })}
                                 className="flex-1 px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm">
-                                <option value="Plane">✈️ 飛機</option>
-                                <option value="MapPin">📍 地點</option>
-                                <option value="Utensils">🍴 美食</option>
-                                <option value="Gift">🎁 購物</option>
-                                <option value="Coffee">☕ 咖啡</option>
-                                <option value="Star">⭐ 推薦</option>
-                                <option value="Camera">📷 拍照</option>
+                                <option value="Plane">?��? 飛�?</option>
+                                <option value="MapPin">?? ?��?</option>
+                                <option value="Utensils">?�� 美�?</option>
+                                <option value="Gift">?? 購物</option>
+                                <option value="Coffee">???�啡</option>
+                                <option value="Star">�??�薦</option>
+                                <option value="Camera">?�� ?�照</option>
                             </select>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-2">
@@ -220,17 +220,17 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                                 onChange={(e) => setNewItem({ ...newItem, text: e.target.value })}
                                 onKeyPress={(e) => e.key === 'Enter' && (editingItemIndex !== null ? handleUpdateItem() : handleAddItem())}
                                 className="w-full px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm"
-                                placeholder="輸入行程項目..." />
+                                placeholder="輸入行�??�目..." />
                             <div className="flex gap-2 self-end sm:self-auto">
                                 {editingItemIndex !== null && (
                                     <button onClick={handleCancelEdit}
                                         className="px-4 py-2 bg-gray-400 text-white rounded-xl font-bold hover:bg-gray-500 transition-colors flex-shrink-0">
-                                        取消
+                                        ?��?
                                     </button>
                                 )}
                                 <button onClick={editingItemIndex !== null ? handleUpdateItem : handleAddItem}
                                     className="px-6 py-2 bg-[#ff9a9e] text-white rounded-xl font-bold hover:bg-[#ff8a8e] transition-colors flex-shrink-0">
-                                    {editingItemIndex !== null ? '更新' : <Plus size={16} />}
+                                    {editingItemIndex !== null ? '?�新' : <Plus size={16} />}
                                 </button>
                             </div>
                         </div>
@@ -239,23 +239,23 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
 
                 {/* Sheep OS */}
                 <div className="mb-6">
-                    <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">小羊 OS 🐑</label>
+                    <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">小�? OS ??</label>
                     <textarea value={formData.sheepOS}
                         onChange={(e) => setFormData({ ...formData, sheepOS: e.target.value })}
                         className="w-full px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none resize-none"
                         rows="3"
-                        placeholder="小羊想說什麼呢..."></textarea>
+                        placeholder="小�??�說什麼呢..."></textarea>
                 </div>
 
                 {/* Actions */}
                 <div className="flex justify-end gap-3">
                     <button onClick={onCancel}
                         className="px-6 py-3 rounded-xl border-2 border-gray-300 text-gray-600 font-bold hover:bg-gray-50 transition-colors font-handwriting">
-                        取消
+                        ?��?
                     </button>
                     <button onClick={handleSubmit}
                         className="px-6 py-3 rounded-xl bg-[#ff9a9e] text-white font-bold shadow-md hover:bg-[#ff8a8e] transition-colors font-handwriting">
-                        {itinerary ? '儲存' : '新增'}
+                        {itinerary ? '?��?' : '?��?'}
                     </button>
                 </div>
             </div >
