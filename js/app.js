@@ -10,6 +10,17 @@ const App = () => {
 
     // 初始化載入資料
     React.useEffect(() => {
+        // 一次性清除舊資料（只執行一次後可以刪除這段）
+        const shouldClear = !localStorage.getItem('lin_sheep_data_cleared_v2');
+        if (shouldClear) {
+            console.log('清除舊資料...');
+            saveItineraries([]);
+            localStorage.setItem('lin_sheep_data_cleared_v2', 'true');
+            setItineraries([]);
+            setIsInitialized(true);
+            return;
+        }
+
         loadItineraries((loadedData) => {
             // 如果有資料就載入，沒有就用空陣列
             if (loadedData && Array.isArray(loadedData)) {
