@@ -57,3 +57,59 @@
 .animate-scale-in {
     animation: scale-in 0.2s ease-out forwards;
 }
+
+/* 橫幅標題動畫：左右晃動 */
+@keyframes sway-gentle {
+
+    0%,
+    100% {
+        transform: rotate(-2deg) translateX(-5px);
+    }
+
+    50% {
+        transform: rotate(2deg) translateX(5px);
+    }
+}
+
+/* 橫幅標題動畫：呼吸膨脹 */
+@keyframes pulse-breathe {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+/* 橫幅標題複合動畫 */
+.animate-banner-title {
+    animation:
+        sway-gentle 6s ease-in-out infinite,
+        pulse-breathe 4s ease-in-out infinite;
+    transform-origin: center;
+}
+
+/* 側邊選單箭頭閃爍動畫 */
+@keyframes shimmer {
+    0% {
+        opacity: 0.6;
+        transform: translateX(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateX(-3px);
+    }
+
+    100% {
+        opacity: 0.6;
+        transform: translateX(0);
+    }
+}
+
+.animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+}

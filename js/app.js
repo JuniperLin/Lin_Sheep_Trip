@@ -187,7 +187,7 @@ const App = () => {
                     <div className="inline-block px-6 py-2 bg-white/80 rounded-full mb-4 shadow-sm backdrop-blur-sm transform -rotate-2">
                         <span className="text-[#ff9a9e] font-bold font-display tracking-widest">TOKYO TRIP 2025</span>
                     </div>
-                    <h1 className="text-4xl md:text-7xl font-bold text-gray-800 mb-6 font-handwriting text-shadow-sm">
+                    <h1 className="text-4xl md:text-7xl font-bold text-gray-800 mb-6 font-handwriting text-shadow-sm animate-banner-title">
                         小羊的<br /><span className="text-[#ff9a9e]">春日大冒險</span>
                     </h1>
                     <p className="text-lg md:text-2xl text-gray-600 font-handwriting bg-white/60 inline-block px-8 py-3 rounded-[30px_10px_30px_10px] shadow-lg">
@@ -229,25 +229,16 @@ const App = () => {
                 </div>
             </footer>
 
-            {/* Floating Action Buttons */}
-            <div className="fixed bottom-24 md:bottom-4 left-4 z-50 flex flex-col gap-3">
-                <button onClick={handleAddNew}
-                    className="w-14 h-14 bg-[#ff9a9e] text-white rounded-full shadow-xl hover:bg-[#ff8a8e] transition-all hover:scale-110 flex items-center justify-center"
-                    title="新增行程">
-                    <Plus size={24} />
-                </button>
-                <button onClick={handleExport}
-                    className="w-14 h-14 bg-[#a8e6cf] text-white rounded-full shadow-xl hover:bg-[#8dd9b8] transition-all hover:scale-110 flex items-center justify-center"
-                    title="下載備份">
-                    <Download size={20} />
-                </button>
-                <button onClick={handleImport}
-                    className="w-14 h-14 bg-[#ffd89b] text-white rounded-full shadow-xl hover:bg-[#ffc875] transition-all hover:scale-110 flex items-center justify-center"
-                    title="匯入備份">
-                    <Upload size={20} />
-                </button>
-                <input type="file" ref={importFileRef} onChange={handleImportFile} accept=".json" className="hidden" />
-            </div>
+            {/* Side Action Menu */}
+            <SideActionMenu
+                onAddNew={handleAddNew}
+                onExport={handleExport}
+                onImport={handleImport}
+                importFileRef={importFileRef}
+            />
+
+            {/* Hidden File Input */}
+            <input type="file" ref={importFileRef} onChange={handleImportFile} accept=".json" className="hidden" />
         </div>
     );
 };
