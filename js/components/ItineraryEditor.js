@@ -159,101 +159,99 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                         )}
                     </div>
                 </div>
-            </div>
-        </div>
 
-                {/* Content Items */ }
-    <div className="mb-6">
-        <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">行程內容</label>
-        <div className="space-y-2 mb-3">
-            {formData.content.map((item, index) => (
-                <div key={index} className={`flex items-center gap-2 bg-white p-3 rounded-xl border-2 ${editingItemIndex === index ? 'border-[#ff9a9e] bg-[#fff9f9]' : 'border-gray-200'}`}>
-                    {item.time && (
-                        <span className="text-[#ff9a9e] font-bold text-sm">{item.time}</span>
-                    )}
-                    <span className="text-[#ff9a9e]">{item.icon}</span>
-                    <span className="flex-1 font-handwriting text-sm">{item.text}</span>
-                    <button onClick={() => handleEditItem(index)}
-                        className="text-blue-500 hover:text-blue-700"
-                        title="編輯">
-                        <Edit size={16} />
+                {/* Content Items */}
+                <div className="mb-6">
+                    <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">行程內容</label>
+                    <div className="space-y-2 mb-3">
+                        {formData.content.map((item, index) => (
+                            <div key={index} className={`flex items-center gap-2 bg-white p-3 rounded-xl border-2 ${editingItemIndex === index ? 'border-[#ff9a9e] bg-[#fff9f9]' : 'border-gray-200'}`}>
+                                {item.time && (
+                                    <span className="text-[#ff9a9e] font-bold text-sm">{item.time}</span>
+                                )}
+                                <span className="text-[#ff9a9e]">{item.icon}</span>
+                                <span className="flex-1 font-handwriting text-sm">{item.text}</span>
+                                <button onClick={() => handleEditItem(index)}
+                                    className="text-blue-500 hover:text-blue-700"
+                                    title="編輯">
+                                    <Edit size={16} />
+                                </button>
+                                <button onClick={() => handleRemoveItem(index)}
+                                    className="text-red-500 hover:text-red-700"
+                                    title="刪除">
+                                    <XIcon size={16} />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Add/Edit item */}
+                    <div className="flex flex-col gap-2">
+                        {editingItemIndex !== null && (
+                            <div className="text-sm font-bold text-blue-600 mb-1">
+                                ✏️ 編輯模式
+                            </div>
+                        )}
+                        <div className="flex flex-col sm:flex-row gap-2">
+                            <input type="time" value={newItem.time}
+                                onChange={(e) => setNewItem({ ...newItem, time: e.target.value })}
+                                className="w-28 px-2 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm"
+                                placeholder="時間" />
+                            <select value={newItem.icon}
+                                onChange={(e) => setNewItem({ ...newItem, icon: e.target.value })}
+                                className="flex-1 px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm">
+                                <option value="Plane">✈️ 飛機</option>
+                                <option value="MapPin">📍 地點</option>
+                                <option value="Utensils">🍴 美食</option>
+                                <option value="Gift">🎁 購物</option>
+                                <option value="Coffee">☕ 咖啡</option>
+                                <option value="Star">⭐ 推薦</option>
+                                <option value="Camera">📷 拍照</option>
+                            </select>
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                            <input type="text" value={newItem.text}
+                                onChange={(e) => setNewItem({ ...newItem, text: e.target.value })}
+                                onKeyPress={(e) => e.key === 'Enter' && (editingItemIndex !== null ? handleUpdateItem() : handleAddItem())}
+                                className="w-full px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm"
+                                placeholder="輸入行程項目..." />
+                            <div className="flex gap-2 self-end sm:self-auto">
+                                {editingItemIndex !== null && (
+                                    <button onClick={handleCancelEdit}
+                                        className="px-4 py-2 bg-gray-400 text-white rounded-xl font-bold hover:bg-gray-500 transition-colors flex-shrink-0">
+                                        取消
+                                    </button>
+                                )}
+                                <button onClick={editingItemIndex !== null ? handleUpdateItem : handleAddItem}
+                                    className="px-6 py-2 bg-[#ff9a9e] text-white rounded-xl font-bold hover:bg-[#ff8a8e] transition-colors flex-shrink-0">
+                                    {editingItemIndex !== null ? '更新' : <Plus size={16} />}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Sheep OS */}
+                <div className="mb-6">
+                    <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">小羊 OS 🐑</label>
+                    <textarea value={formData.sheepOS}
+                        onChange={(e) => setFormData({ ...formData, sheepOS: e.target.value })}
+                        className="w-full px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none resize-none"
+                        rows="3"
+                        placeholder="小羊想說什麼呢..."></textarea>
+                </div>
+
+                {/* Actions */}
+                <div className="flex justify-end gap-3">
+                    <button onClick={onCancel}
+                        className="px-6 py-3 rounded-xl border-2 border-gray-300 text-gray-600 font-bold hover:bg-gray-50 transition-colors font-handwriting">
+                        取消
                     </button>
-                    <button onClick={() => handleRemoveItem(index)}
-                        className="text-red-500 hover:text-red-700"
-                        title="刪除">
-                        <XIcon size={16} />
+                    <button onClick={handleSubmit}
+                        className="px-6 py-3 rounded-xl bg-[#ff9a9e] text-white font-bold shadow-md hover:bg-[#ff8a8e] transition-colors font-handwriting">
+                        {itinerary ? '儲存' : '新增'}
                     </button>
                 </div>
-            ))}
-        </div>
-
-        {/* Add/Edit item */}
-        <div className="flex flex-col gap-2">
-            {editingItemIndex !== null && (
-                <div className="text-sm font-bold text-blue-600 mb-1">
-                    ✏️ 編輯模式
-                </div>
-            )}
-            <div className="flex flex-col sm:flex-row gap-2">
-                <input type="time" value={newItem.time}
-                    onChange={(e) => setNewItem({ ...newItem, time: e.target.value })}
-                    className="w-28 px-2 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm"
-                    placeholder="時間" />
-                <select value={newItem.icon}
-                    onChange={(e) => setNewItem({ ...newItem, icon: e.target.value })}
-                    className="flex-1 px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm">
-                    <option value="Plane">✈️ 飛機</option>
-                    <option value="MapPin">📍 地點</option>
-                    <option value="Utensils">🍴 美食</option>
-                    <option value="Gift">🎁 購物</option>
-                    <option value="Coffee">☕ 咖啡</option>
-                    <option value="Star">⭐ 推薦</option>
-                    <option value="Camera">📷 拍照</option>
-                </select>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-2">
-                <input type="text" value={newItem.text}
-                    onChange={(e) => setNewItem({ ...newItem, text: e.target.value })}
-                    onKeyPress={(e) => e.key === 'Enter' && (editingItemIndex !== null ? handleUpdateItem() : handleAddItem())}
-                    className="w-full px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none text-sm"
-                    placeholder="輸入行程項目..." />
-                <div className="flex gap-2 self-end sm:self-auto">
-                    {editingItemIndex !== null && (
-                        <button onClick={handleCancelEdit}
-                            className="px-4 py-2 bg-gray-400 text-white rounded-xl font-bold hover:bg-gray-500 transition-colors flex-shrink-0">
-                            取消
-                        </button>
-                    )}
-                    <button onClick={editingItemIndex !== null ? handleUpdateItem : handleAddItem}
-                        className="px-6 py-2 bg-[#ff9a9e] text-white rounded-xl font-bold hover:bg-[#ff8a8e] transition-colors flex-shrink-0">
-                        {editingItemIndex !== null ? '更新' : <Plus size={16} />}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {/* Sheep OS */ }
-    <div className="mb-6">
-        <label className="block text-sm font-bold text-gray-700 mb-2 font-handwriting">小羊 OS 🐑</label>
-        <textarea value={formData.sheepOS}
-            onChange={(e) => setFormData({ ...formData, sheepOS: e.target.value })}
-            className="w-full px-3 py-2 border-2 border-gray-300 rounded-xl font-handwriting focus:border-[#ff9a9e] focus:outline-none resize-none"
-            rows="3"
-            placeholder="小羊想說什麼呢..."></textarea>
-    </div>
-
-    {/* Actions */ }
-    <div className="flex justify-end gap-3">
-        <button onClick={onCancel}
-            className="px-6 py-3 rounded-xl border-2 border-gray-300 text-gray-600 font-bold hover:bg-gray-50 transition-colors font-handwriting">
-            取消
-        </button>
-        <button onClick={handleSubmit}
-            className="px-6 py-3 rounded-xl bg-[#ff9a9e] text-white font-bold shadow-md hover:bg-[#ff8a8e] transition-colors font-handwriting">
-            {itinerary ? '儲存' : '新增'}
-        </button>
-    </div>
             </div >
         </div >
     );
