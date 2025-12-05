@@ -229,25 +229,14 @@ const App = () => {
                 </div>
             </footer>
 
-            {/* Floating Action Buttons */}
-            <div className="fixed bottom-24 md:bottom-4 left-4 z-50 flex flex-col gap-3">
-                <button onClick={handleAddNew}
-                    className="w-14 h-14 bg-[#ff9a9e] text-white rounded-full shadow-xl hover:bg-[#ff8a8e] transition-all hover:scale-110 flex items-center justify-center"
-                    title="新增行程">
-                    <Plus size={24} />
-                </button>
-                <button onClick={handleExport}
-                    className="w-14 h-14 bg-[#a8e6cf] text-white rounded-full shadow-xl hover:bg-[#8dd9b8] transition-all hover:scale-110 flex items-center justify-center"
-                    title="下載備份">
-                    <Download size={20} />
-                </button>
-                <button onClick={handleImport}
-                    className="w-14 h-14 bg-[#ffd89b] text-white rounded-full shadow-xl hover:bg-[#ffc875] transition-all hover:scale-110 flex items-center justify-center"
-                    title="匯入備份">
-                    <Upload size={20} />
-                </button>
-                <input type="file" ref={importFileRef} onChange={handleImportFile} accept=".json" className="hidden" />
-            </div>
+            {/* Side Action Menu */}
+            <SideActionMenu
+                onAddNew={handleAddNew}
+                onExport={handleExport}
+                onImport={handleImport}
+                importFileRef={importFileRef}
+            />
+            <input type="file" ref={importFileRef} onChange={handleImportFile} accept=".json" className="hidden" />
         </div>
     );
 };

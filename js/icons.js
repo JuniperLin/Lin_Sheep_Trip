@@ -21,3 +21,24 @@ const Trash = ({ size, className }) => <IconWrapper className={className}><polyl
 const Plus = ({ size, className }) => <IconWrapper className={className}><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></IconWrapper>;
 const Download = ({ size, className }) => <IconWrapper className={className}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></IconWrapper>;
 const Upload = ({ size, className }) => <IconWrapper className={className}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></IconWrapper>;
+const ChevronRight = ({ size, className }) => <IconWrapper className={className}><polyline points="9 18 15 12 9 6" /></IconWrapper>;
+
+// Expose to window for other scripts
+window.IconWrapper = IconWrapper;
+window.Plane = Plane;
+window.MapPin = MapPin;
+window.Utensils = Utensils;
+window.Gift = Gift;
+window.Coffee = Coffee;
+window.Star = Star;
+window.Camera = Camera;
+window.XIcon = XIcon;
+window.Check = Check;
+window.ZoomIn = ZoomIn;
+window.ZoomOut = ZoomOut;
+window.Edit = Edit;
+window.Trash = Trash;
+window.Plus = Plus;
+window.Download = Download;
+window.Upload = Upload;
+window.ChevronRight = ChevronRight;
