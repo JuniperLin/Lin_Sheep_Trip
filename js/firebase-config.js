@@ -24,8 +24,20 @@ const saveItineraries = (itineraries) => {
     if (database) {
         database.ref('itineraries').set(itineraries);
     }
-    // Also save to localStorage as backup
-    localStorage.setItem('lin_sheep_trip_itineraries', JSON.stringify(itineraries));
+    // Also save to localStorage as backup (with error handling)
+    try {
+        localStorage.setItem('lin_sheep_trip_itineraries', JSON.stringify(itineraries));
+    } catch (e) {
+        console.warn('localStorage quota exceeded, clearing old data...');
+        // Clear old data and try again
+        localStorage.removeItem('lin_sheep_trip_itineraries');
+        localStorage.removeItem('lin_sheep_avatar');
+        try {
+            localStorage.setItem('lin_sheep_trip_itineraries', JSON.stringify(itineraries));
+        } catch (e2) {
+            console.error('localStorage still full, skipping local backup');
+        }
+    }
     return Promise.resolve();
 };
 
@@ -86,3 +98,10 @@ const importData = (file, callback) => {
     };
     reader.readAsText(file);
 };
+
+// Expose functions to window for Babel scripts
+window.saveItineraries = saveItineraries;
+window.loadItineraries = loadItineraries;
+window.uploadImage = uploadImage;
+window.exportData = exportData;
+window.importData = importData;
