@@ -6,7 +6,7 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
 
     const [formData, setFormData] = React.useState(safeItinerary || {
         day: 'Day 1',
-        date: '3/18',
+        date: '2025-03-18',
         title: '',
         image: 'https://images.unsplash.com/photo-1554797589-7241bb691973?q=80&w=600&auto=format&fit=crop',
         align: 'left',
@@ -115,15 +115,17 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (file) {
+            console.log('Starting upload for:', file.name);
             setIsUploading(true);
             try {
                 const url = await uploadImage(file);
-                setFormData({ ...formData, image: url });
+                console.log('Upload successful, URL:', url);
+                setFormData(prev => ({ ...prev, image: url }));
             } catch (error) {
                 console.error('Upload failed:', error);
+                alert('Image upload failed: ' + error.message);
             }
             setIsUploading(false);
-            e.target.value = '';
         }
     };
 
@@ -151,23 +153,16 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-bold mb-1 text-gray-700">📅 Day</label>
-                            <select value={formData.day}
+                            <input type="text" value={formData.day}
                                 onChange={(e) => setFormData({ ...formData, day: e.target.value })}
-                                className="w-full px-4 py-3 border-2 border-[#ffd89b] rounded-2xl font-handwriting focus:border-[#ff9a9e] focus:outline-none bg-[#fffef5] transition-colors text-lg">
-                                {dayOptions.map(day => (
-                                    <option key={day} value={day}>{day}</option>
-                                ))}
-                            </select>
+                                className="w-full px-4 py-3 border-2 border-[#ffd89b] rounded-2xl font-handwriting focus:border-[#ff9a9e] focus:outline-none bg-[#fffef5] transition-colors text-lg"
+                                placeholder="Day 1" />
                         </div>
                         <div>
                             <label className="block text-sm font-bold mb-1 text-gray-700">📆 日期</label>
-                            <select value={formData.date}
+                            <input type="date" value={formData.date}
                                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                                className="w-full px-4 py-3 border-2 border-[#ffd89b] rounded-2xl font-handwriting focus:border-[#ff9a9e] focus:outline-none bg-[#fffef5] transition-colors text-lg">
-                                {dateOptions.map(d => (
-                                    <option key={d.value} value={d.value}>{d.label}</option>
-                                ))}
-                            </select>
+                                className="w-full px-4 py-3 border-2 border-[#ffd89b] rounded-2xl font-handwriting focus:border-[#ff9a9e] focus:outline-none bg-[#fffef5] transition-colors text-lg" />
                         </div>
                         <div className="col-span-2">
                             <label className="block text-sm font-bold mb-1 text-gray-700">✨ 標題</label>
