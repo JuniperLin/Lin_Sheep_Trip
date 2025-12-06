@@ -59,28 +59,16 @@ const loadItineraries = (callback) => {
 };
 
 const uploadImage = async (file) => {
-    // Try Firebase Storage first
-    if (storage) {
-        try {
-            const storageRef = storage.ref();
-            const imageRef = storageRef.child(`images/${Date.now()}_${file.name}`);
-            const snapshot = await imageRef.put(file);
-            const url = await snapshot.ref.getDownloadURL();
-            console.log('Image uploaded to Firebase Storage');
-            return url;
-        } catch (error) {
-            console.warn('Firebase Storage failed, using base64 fallback:', error.message);
-            // Fall through to base64 fallback
-        }
+    if (!storage) {
+        throw new Error('Firebase Storage not initialized');
     }
 
-    // Fallback to base64 (works without Firebase Storage permissions)
-    console.log('Using base64 encoding for image');
-    return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(file);
-    });
+    const storageRef = storage.ref();
+    const imageRef = storageRef.child(`images/${Date.now()}_${file.name}`);
+    const snapshot = await imageRef.put(file);
+    const url = await snapshot.ref.getDownloadURL();
+    console.log('Image uploaded to Firebase Storage:', url);
+    return url;
 };
 
 // Export/Import functions
