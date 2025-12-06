@@ -148,9 +148,9 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                     </h2>
                 </div>
 
-                <div className="p-6 space-y-6">
+                <div className="p-6 space-y-6 overflow-x-hidden">
                     {/* Basic Info */}
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-bold mb-1 text-gray-700">📅 Day</label>
                             <input type="text" value={formData.day}
@@ -162,7 +162,7 @@ const ItineraryEditor = ({ itinerary, onSave, onCancel }) => {
                             <label className="block text-sm font-bold mb-1 text-gray-700">📆 日期</label>
                             <input type="date" value={formData.date}
                                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                                className="w-full px-4 py-3 border-2 border-[#ffd89b] rounded-2xl font-handwriting focus:border-[#ff9a9e] focus:outline-none bg-[#fffef5] transition-colors text-lg" />
+                                className="w-full px-3 py-3 border-2 border-[#ffd89b] rounded-2xl font-handwriting focus:border-[#ff9a9e] focus:outline-none bg-[#fffef5] transition-colors text-base max-w-full" />
                         </div>
                         <div className="col-span-2">
                             <label className="block text-sm font-bold mb-1 text-gray-700">✨ 標題</label>
